@@ -12,9 +12,8 @@ class Cifrado
 		return 0
 	end
 
-	def cifrar(alfabeto)
+	def cifrar(alfabeto, comienzo)
 	i = 0
-	comienzo = 0
 	alfabeto_cifrado = {}
 	while  i < alfabeto.length
 		alfabeto_cifrado[alfabeto[i]] = alfabeto[comienzo]
@@ -38,7 +37,7 @@ clave = gets.chomp
 alfabeto_cifrado = {}
 
 comienzo = operador.posicionCoincidencia(alfabeto, clave)
-alfabeto_cifrado = operador.cifrar(alfabeto)
+alfabeto_cifrado = operador.cifrar(comienzo)
 
 
 puts alfabeto_cifrado.inspect
