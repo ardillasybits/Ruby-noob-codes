@@ -1,0 +1,34 @@
+Español:
+
+Podrás encontrar soluciones de las prácticas y exámenes de diferentes cursos relacionados a programación.
+En esta sección están las soluciones en lenguaje Ruby (link debajo)
+
+http://www.ruby-lang.org/en/
+
+[curso]  = [nombre completo]
+TP       = Técnicas de Programación
+IC	 = Introducción a la computación
+LP	 = Lenguajes de programación
+
+Se ha elegido un formado para los nombres de los archivos, de tal manera que esté todo ordenado y sea
+fácil buscar algúna práctica examen.
+
+CURSOAÑO-CICLOTIPONUMERO-PREGUNTA{_EDICION}
+
+donde
+
+CURSO	 	= abreviación del nombre del curso en MAYUS.
+AÑO   		= año de la práctica o examen (formato: YYYY)
+CICLO 		= ciclo al cual pertenece la práctica o exámen (formato: número entero)
+TIPO  		= práctica o exámen. Practica = PC   .  Examen = EX
+NUMERO		= numéro de práctica o exámen (formato: número entero)
+PREGUNTA	= número de la pregunta resuleta (formato: número entero)
+EDICION		= (opcional)
+
+ejemplo:
+
+TP2010-2PC1-8_2
+
+Se lee:
+Práctica numero 1 de Técnicas de programación (TP) del año 2010 ciclo 2. Pregunta 8, resolución alternativa 2
+
