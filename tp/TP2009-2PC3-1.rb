@@ -16,9 +16,12 @@ class Cifrado
 	i = 0
 	alfabeto_cifrado = {}
 	while  i < alfabeto.length
-		alfabeto_cifrado[alfabeto[i]] = alfabeto[comienzo]
-		comienzo += 1
-		i += 1
+	if comienzo >= alfabeto.length then #if alfabeto[] ends, comienzo will reset to 0 and start from beggining.
+		comienzo = 0
+	end
+	alfabeto_cifrado[alfabeto[i]] = alfabeto[comienzo]
+	comienzo += 1
+	i += 1
 	end
 	return alfabeto_cifrado
 	end
@@ -37,11 +40,19 @@ clave = gets.chomp
 alfabeto_cifrado = {}
 
 comienzo = operador.posicionCoincidencia(alfabeto, clave)
-alfabeto_cifrado = operador.cifrar(comienzo)
+alfabeto_cifrado = operador.cifrar(alfabeto, comienzo)
 
 
-puts alfabeto_cifrado.inspect
+#puts alfabeto_cifrado.inspect
+nuevos = []
+contador = 0
+lectura = File.new("texto.txt")
 
-lectura = File.new("texto.txt", "r")
+while caracter = lectura.getc
+caracter.chomp
+nuevos << alfabeto_cifrado[caracter]
+end
+
+puts nuevos.inspect
 lectura.close
 

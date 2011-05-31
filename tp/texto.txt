@@ -1,4 +1,2 @@
-linea1
-linea2
-linea3
+Mensaje que se quiere cifrar
 
