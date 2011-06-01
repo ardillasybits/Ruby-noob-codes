@@ -3,7 +3,7 @@ class Cifrado
 		contador = 0
 		comienzo = 0
 		lista.each_char do |letra|
-		if letra == clave[0] then
+		if letra == clave then
 			comienzo = contador
 			return comienzo
 		end
@@ -29,28 +29,32 @@ end
 
 operador = Cifrado.new
 alfabeto = ""
+clave = ""
 
 puts "Ingrese los caracteres del alfabeto usado: "
 alfabeto = gets.chomp
-#nota: se aprovecha que si se ingresa como string, se puede acceder como array => puts alfabeto[2]
+#note: if it's a string, we can acces it as an array: alfabeto[2]
 
 puts "Ingrese la clave a usar: "
 clave = gets.chomp
 
 alfabeto_cifrado = {}
 
-comienzo = operador.posicionCoincidencia(alfabeto, clave)
-alfabeto_cifrado = operador.cifrar(alfabeto, comienzo)
-
-
-#puts alfabeto_cifrado.inspect
+contador_clave = 0
 nuevos = []
-contador = 0
 lectura = File.new("texto.txt")
 
 while caracter = lectura.getc
-caracter.chomp
-nuevos << alfabeto_cifrado[caracter]
+	caracter.chomp
+	if contador_clave > clave.length then
+	contador_clave = 0
+	end
+
+	comienzo = operador.posicionCoincidencia(alfabeto, clave[contador_clave])
+	alfabeto_cifrado = operador.cifrar(alfabeto, comienzo)
+
+	nuevos << alfabeto_cifrado[caracter]
+	contador_clave += 1
 end
 
 puts nuevos.inspect
