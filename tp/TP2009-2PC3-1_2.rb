@@ -1,6 +1,6 @@
 #Ajara
 #This is the solution of problem 1 of PC3 in 2009-2 semester
-#
+#TODO Finish displaying the output in an external text file.
 ################################################################################
 #According to the problem's text, only arrays of characters should be used. Due 
 #to Ruby's nature, this can't be accomplished; however, there will be some sort
@@ -61,7 +61,7 @@ File.new("codigo.txt", "r").each_char do |char|
 	end
 end
 
-#Here we read the file containig the message to encrypt. Name it message as an
+#Here we read the file containing the message to encrypt. Name it message as an
 #array. Each line of the message is stored as an element of the array. That way,
 #calling message[0] returns a string with the first line of the text to encrypt.
 #We are going to save it as an object of a new class named message.
@@ -87,8 +87,8 @@ end
 
 class Message
 	def encode(alphabet, key)
-	#first it creates the alphabets for each letter in the key.  Let it be
-	#an array of arrays named alphabets.
+	#first it creates the alphabets for each letter in the key. Let it be an
+	#array of arrays named alphabets.
 	
 	alphabets = Array.new
 	line_new = ""
@@ -99,42 +99,41 @@ class Message
 	    first=alphabet.dup
 	    alphabet_new=[]
 	    alphabet.each do |character|
-			    if character != letter then
-				    last << first[0]
-				    first.delete_at(0)
-			    else
-				    break
-			    end	
-
+            if character != letter then
+                last << first[0]
+                first.delete_at(0)
+            else
+                break
+            end		
 	    end
-
 	    alphabet_new = first + last
 	    alphabets  <<  alphabet_new
     end
-    puts alphabets.class
-    #We set the index of each letter in the original alphabet and take it's 
-    #counterpart in the new alphabet. Then it's added to the new encoded line.
-    
+
+    i = 0           #dummy counter for number of alphabet
+    message_new = Array.new 
     self.each do |line|
-    
+        line_new = String.new
         line.each_char do |char|
-            ind = alphabet.index(char)
-            alph = alphabets[i]
-            puts alph.inspect
-            char_new = alph[ind]
-            line_new = line_new + char_new
-            if i != key.length then
-                i = i+1
-            else
+            ind = alphabet.index(char)      #setting the index of each letter.
+            char_new = alphabets[i][ind]    #obtaining corresponding letter.
+            line_new << char_new            #Adding to new encoded line.
+            if i >= key.size - 1 then
                 i = 0
+            else
+                i = i + 1
             end
         end
-        message_new << line_new
+        message_new  << line_new
     end
     return message_new
     end
 end
-#Using an array of characters. Name it characters. All output will be saved to a
-#new array. Name it encoded.
 
-puts message.encode(alphabet, key).inspect
+encoded = message.encode(alphabet, key)    #Output saved to a new array.
+
+#Saving encrypted message to a text file. That's all folks.
+output = File.new("codificado.txt", "w")
+output.puts encoded
+output.close
+	

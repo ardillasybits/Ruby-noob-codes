@@ -1,2 +1,5 @@
 Mensaje que se quiere cifrar
+Segunda línea de lo que se quiere cifrar
+Tercera.
+Cuarta línea con símbolos. .
 
