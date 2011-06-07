@@ -17,7 +17,7 @@ class TiroBlanco
 	end
 
 end
-
+#note if you didn't notice: we are working all numbers as float!
 LONGITUD = 10 #constant
 
 coordenadas = TiroBlanco.new
