@@ -86,7 +86,7 @@ end
 #defining the encode method inside the Message class
 
 class Message
-	def encode(alphabet, key)
+    def encode(alphabet, key)
 	#first it creates the alphabets for each letter in the key. Let it be an
 	#array of arrays named alphabets.
 	
@@ -94,7 +94,7 @@ class Message
 	line_new = ""
 	char_new = ""
 	i=0
-    key.each do |letter|
+        key.each do |letter|
 	    last=[]
 	    first=alphabet.dup
 	    alphabet_new=[]
@@ -108,25 +108,25 @@ class Message
 	    end
 	    alphabet_new = first + last
 	    alphabets  <<  alphabet_new
-    end
-
-    i = 0           #dummy counter for number of alphabet
-    message_new = Array.new 
-    self.each do |line|
-        line_new = String.new
-        line.each_char do |char|
-            ind = alphabet.index(char)      #setting the index of each letter.
-            char_new = alphabets[i][ind]    #obtaining corresponding letter.
-            line_new << char_new            #Adding to new encoded line.
-            if i >= key.size - 1 then
-                i = 0
-            else
-                i = i + 1
-            end
         end
-        message_new  << line_new
-    end
-    return message_new
+
+        i = 0           #dummy counter for number of alphabet
+        message_new = Array.new 
+        self.each do |line|
+            line_new = String.new
+            line.each_char do |char|
+                ind = alphabet.index(char)      #setting the index of each letter.
+                char_new = alphabets[i][ind]    #obtaining corresponding letter.
+                line_new << char_new            #Adding to new encoded line.
+                if i >= key.size - 1 then
+                    i = 0
+                else
+                    i = i + 1
+                end
+            end
+            message_new  << line_new
+        end
+        return message_new
     end
 end
 

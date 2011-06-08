@@ -4,6 +4,42 @@
 L = 50.0    #length of the field,
 H = 2.5     #height of the board.
 PI = Math::PI
+G = 9.8  #Gravity value
+
+#Defining position. Let it be an array containing coordinates for each
+#player
+
+class Shot
+    def position(vo, ang, tgap)
+        flytime = (2*vo*Math.sin(ang))/G
+        pos = []
+        lastrange = 0
+        t = 0
+        x = 0
+        i = 0
+        while x < L do
+            if 0 <=t and t <= flytime then
+                 compy = Math.sin(ang)
+                compx = Math.cos(ang)
+                x = vo*compx*t + lastrange
+                y = vo*compy*t - 0.5*G*t**2
+                t = t + tgap
+                pos << [x, y]
+            else
+                lastrange = ((vo**2)*Math.sin(2*ang))/G
+                t = (t-flytime)
+                ang = ang*0.85
+                vo = vo*0.85
+                flytime = (2*vo*Math.sin(ang))/G
+                if flytime == 0 then
+                    puts "Velocidad de lanzamiento insuficiente. Lanza con mayor velocidad."
+                    break
+                end
+            end
+        end
+        return pos
+    end
+end
 
 #Defining variables to be read.
 puts "Ingrese los datos solicitados:"
@@ -21,62 +57,25 @@ ang1 = ang1*PI/180
 puts "Ángulo de inclinación 2(sexagesimal):"
 ang2 = gets.to_f
 ang2 = ang2*PI/180
+puts "tiempo entre las mediciones(segundos):"
+tgap=gets.to_f
 
-#Defining position. Let it be an array containing coordinates for each
-#player
-
-G = 9.8
-class Player
-    def position(vo, ang, time)
-        compy = Math.sin(ang)
-        compx = Math.cos(ang)
-        x = vo*compx*time
-        y = vo*compy*time-0.5*G*time**2
-        coord = [x, y]
-        return coord
-    end
-end
-
-#Asking for the required time gap between position measurements.
-puts "Intervalo de tiempo entre las mediciones:"
-tgap = gets.to_f
-
-#getting the data.
-
-player1 = Player.new
-player2 = Player.new
-position1 = [0,0]  #initializing value
-position2 = [0,0]
-
+player1=Shot.new
 t = 0
-
-until player1.position(initv1, ang1, t)[0] > L do
-    if 0<=player1.position(initv1, ang1, t)[0] and player1.position(initv1, ang1, t)[0]<=(initv1**2*Math.sin(2*ang1))/G then
-        puts "para t="+t.to_s
-        0.upto(1) do |i|
-            position1[i] = position1[i] + player1.position(initv1, ang1, t)[i]
-        end
-        puts position1
-    else
-        initv1 = initv1*0.85
-        ang1 = ang1*0.85
-        
-    end
+puts "Jugador 1: " + name1
+player1.position(initv1, ang1, tgap).each do |coord|
+    puts "para t="+t.to_s
+    puts "("+coord[0].to_s+";"+coord[1].to_s+")"
     t = t + tgap
 end
 
-t = 0 
-until player2.position(initv2, ang2, t)[0] > L do
-    if 0<=player2.position(initv2, ang2, t)[0] and player2.position(initv2, ang2, t)[0]<=(initv2**2*Math.sin(2*ang2))/G then
-        puts "para t="+t.to_s
-        i = 0
-        0.upto(1) do |i|
-            position2[i] = position2[i] + player2.position(initv2, ang2, t)[i]
-        end
-        puts position2
-    else
-        initv2 = initv2*0.85
-        ang2 = ang2*0.85
-    end
+#second player
+player2 = Shot.new
+t = 0
+puts "Jugador 2: " + name2
+player2.position(initv2, ang2, tgap).each do |coord|
+    puts "para t="+t.to_s
+    puts "("+coord[0].to_s+";"+coord[1].to_s+")"
     t = t + tgap
 end
+
