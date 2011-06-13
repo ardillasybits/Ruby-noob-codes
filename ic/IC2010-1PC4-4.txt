@@ -1,0 +1,80 @@
+Const rpta As String = "CANDADO"
+Const answr As String = "PADLOCK"
+
+Sub principal()
+
+Dim idioma As String, respuesta As String, longitudValida As Byte, mal As Byte, mensajeBien As String, mensajeError As String, mensajeInvalido As String
+
+mal = 0
+longitudValida = 0
+idioma = Range("B3")
+respuesta = Range("B4")
+
+If (ValidarLongitud(idioma, respuesta) = True) Then
+longitudValida = 1
+End If
+
+If (SacarLetra(respuesta, 7) <> SacarLetra(rpta, 7)) Then
+mal = 7
+End If
+If (SacarLetra(respuesta, 6) <> SacarLetra(rpta, 6)) Then
+mal = 6
+End If
+If (SacarLetra(respuesta, 5) <> SacarLetra(rpta, 5)) Then
+mal = 5
+End If
+If (SacarLetra(respuesta, 4) <> SacarLetra(rpta, 4)) Then
+mal = 4
+End If
+If (SacarLetra(respuesta, 3) <> SacarLetra(rpta, 3)) Then
+mal = 3
+End If
+If (SacarLetra(respuesta, 2) <> SacarLetra(rpta, 2)) Then
+mal = 2
+End If
+If (SacarLetra(respuesta, 1) <> SacarLetra(rpta, 1)) Then
+mal = 1
+End If
+
+
+If (UCase(idioma) = "E") Then
+    mensajeBien = "Respuesta correcta"
+    mensajeError = "La letra numero N no es igual a la letra numero N de la respuesta correcta. Donde N es = "
+    mensajeInvalido = "Respuesta incorrecta, no posee la cantidad correcta de caracteres."
+ElseIf (UCase(idioma) = "I") Then
+    mensajeBien = "Correct answer"
+    mensajeError = "The letter number N is not equal to the letter number N of the correct answer. Where N is = "
+    mensajeInvalido = "Wrong answer, the number of characters is incorrect"
+End If
+
+If (longitudValida = 1) Then
+    If (mal = 0) Then
+        Range("B5") = mensajeBien
+    Else
+        Range("B5") = mensajeError & mal
+    End If
+Else
+    Range("B5") = mensajeInvalido
+End If
+
+End Sub
+
+Function ValidarLongitud(ByVal idioma As String, ByVal respuesta As String)
+
+idioma = UCase(idioma)
+If ((idioma = "E" And Len(respuesta) = Len(rpta)) Or (idioma = "I" And Len(respuesta) = Len(answr))) Then
+    ValidarLongitud = True
+Else
+ValidarLongitud = False
+End If
+
+End Function
+
+Function SacarLetra(ByVal palabra As String, ByVal posicion As Byte)
+
+palabra = UCase(palabra)
+SacarLetra = Mid(palabra, posicion, 1)
+
+End Function
+
+
